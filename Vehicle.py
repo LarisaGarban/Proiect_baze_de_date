@@ -7,8 +7,7 @@ class Vehicle:
         self.vehicle_id = vehicle_id
         self.people_vehicle_description = people_vehicle_description
 
-
-    def __str__(self) :
+    def __str__(self):
         text = ""
         text += "peopleID: " + str(self.peopleID) + os.linesep
         text += "vehicle_id: " + str(self.vehicle_id) + os.linesep
