@@ -1,14 +1,15 @@
 import pymysql
 import datetime
 
+
 from Person import Person
 from Vehicle import Vehicle
 
 
-def create_connection():
+def create_connection(db_name="starwars"):
     mydb = None
     try:
-        mydb = pymysql.connect("lefti.cm.upt.ro", "garbanlarisa", "madalina_111", "starwars")
+        mydb = pymysql.connect("lefti.cm.upt.ro", "garbanlarisa", "madalina_111", db_name)
         return mydb
     except BaseException as e:
         if not (mydb is None):
@@ -244,8 +245,24 @@ def get_people_with_at_least_one_vehicle_and_one_starship():
             print("There is nobody with one starship and one vehicle")
 
         for result in results:
-            print("          " + result[0] + " has " + str(result[1]) + " vehicles and " + str(result[2]) + " starships")
+            print(
+                "          " + result[0] + " has " + str(result[1]) + " vehicles and " + str(result[2]) + " starships")
     except BaseException as ex:
         mydb.close()
         my_cursor.close()
         print(str(ex))
+
+
+def get_pleople_with_at_least_a_minimal_height():
+    inaltime = get_int("Introduceti o inaltime minima in centimetri: ")
+    db_connection = create_connection("lefti_garbanlarisa")
+    my_cursor = db_connection.cursor()
+    try:
+
+
+        my_cursor.callproc("get_numar_nume_persoane_cu_inaltime_mai_mare", (inaltime, 0))
+        my_result = my_cursor.fetchall()
+        nr_persoane = my_result[ 0 ][ 0 ]
+        print("Sunt in baza de date " + str(my_result[ 0 ][ 0 ]) + " peste inaltimea de " + str(inaltime))
+    except BaseException as exception:
+        print(str(exception))
