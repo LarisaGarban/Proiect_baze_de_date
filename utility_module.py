@@ -130,7 +130,7 @@ def get_persoane_dupa_anul_nasterii():
         my_cursor.execute("SELECT * FROM people  WHERE people_birth_year = %s", an)
         people_fields_array = my_cursor.fetchall()
         if len(people_fields_array) is 0:
-            raise Exception("Nu este nimeni in baza de date cu anul nasterii" + str(an))
+            raise Exception("       Nu este nimeni in baza de date cu anul nasterii " + str(an))
 
         for people_fields in people_fields_array:
             person = Person(people_fields[0], people_fields[1], people_fields[2], people_fields[3],
@@ -153,7 +153,7 @@ def afisare_dupa_people_gender(gender):
         my_cursor.execute("SELECT * FROM people  WHERE people_gender = %s", gender)
         people_fields_array = my_cursor.fetchall()
         if len(people_fields_array) is 0:
-            raise Exception('Nu este niciun barbat in baza de date')
+            raise Exception('       Nu este niciun barbat in baza de date')
 
         for people_fields in people_fields_array:
             person = Person(people_fields[0], people_fields[1], people_fields[2], people_fields[3],
@@ -190,7 +190,7 @@ def afiseaza_persoane_cu_cel_putin_un_vehicul():
                 nr_vehicles_array[index] += 1
 
         for i in range(len(people_name_array)):
-            print(people_name_array[i] + " has " + str(nr_vehicles_array[i]) + " vehicles")
+            print("         " + people_name_array[i] + " has " + str(nr_vehicles_array[i]) + " vehicles")
     except BaseException as ex:
         mydb.close()
         my_cursor.close()
@@ -242,7 +242,7 @@ def get_people_with_at_least_one_vehicle_and_one_starship():
         results = my_cursor.fetchall()
 
         if len(results) is 0:
-            print("There is nobody with one starship and one vehicle")
+            print("         There is nobody with one starship and one vehicle")
 
         for result in results:
             print(
@@ -263,6 +263,6 @@ def get_pleople_with_at_least_a_minimal_height():
         my_cursor.callproc("get_numar_nume_persoane_cu_inaltime_mai_mare", (inaltime, 0))
         my_result = my_cursor.fetchall()
         nr_persoane = my_result[ 0 ][ 0 ]
-        print("Sunt in baza de date " + str(my_result[ 0 ][ 0 ]) + " peste inaltimea de " + str(inaltime))
+        print("             Sunt in baza de date " + str(my_result[ 0 ][ 0 ]) + " peste inaltimea de " + str(inaltime))
     except BaseException as exception:
         print(str(exception))
